@@ -1,0 +1,416 @@
+ MongoDB Library Database
+
+ Setup MongoDB
+
+Install MongoDB Locally
+Follow the instructions on the MongoDB website to install MongoDB on your local machine.
+
+Create a Free Cluster on MongoDB Atlas
+1. Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
+2. Sign up for a free account.
+3. Create a new cluster and follow the connection instructions.
+
+ Verify Installation and Connection
+Run the following command to verify the MongoDB installation:
+```sh
+mongo --version
+```
+
+Database and Collection Creation
+
+Create Database
+```sh
+use library
+```
+
+Create Collection
+```sh
+db.createCollection("books")
+```
+
+Insert Data
+Insert at least five book records into the `books` collection:
+```sh
+db.books.insertMany([
+    {
+        title: "The Great Gatsby",
+        author: "F. Scott Fitzgerald",
+        publishedYear: 1925,
+        genre: "Fiction",
+        ISBN: "9780743273565"
+    },
+    {
+        title: "To Kill a Mockingbird",
+        author: "Harper Lee",
+        publishedYear: 1960,
+        genre: "Fiction",
+        ISBN: "9780061120084"
+    },
+    {
+        title: "1984",
+        author: "George Orwell",
+        publishedYear: 1949,
+        genre: "Dystopian",
+        ISBN: "9780451524935"
+    },
+    {
+        title: "The Hobbit",
+        author: "J.R.R. Tolkien",
+        publishedYear: 1937,
+        genre: "Fantasy",
+        ISBN: "9780547928227"
+    },
+    {
+        title: "Harry Potter and the Philosopher's Stone",
+        author: "J.K. Rowling",
+        publishedYear: 1997,
+        genre: "Fantasy",
+        ISBN: "9780747532699"
+    }
+])
+```
+
+ Retrieve Data
+
+Retrieve All Books
+```sh
+db.books.find().pretty()
+```
+
+Query Books by Author
+```sh
+db.books.find({ author: "George Orwell" }).pretty()
+```
+
+ Find Books Published After 2000
+```sh
+db.books.find({ publishedYear: { $gt: 2000 } }).pretty()
+```
+Update Data
+
+ Update Published Year
+```sh
+db.books.updateOne(
+    { ISBN: "9780743273565" },
+    { $set: { publishedYear: 1926 } }
+)
+```
+
+ Add Rating Field
+```sh
+db.books.updateMany(
+    {},
+    { $set: { rating: 5 } }
+)
+```
+
+ Delete Data
+
+Delete Book by ISBN
+```sh
+db.books.deleteOne({ ISBN: "9780451524935" })
+```
+MongoDB Library Database
+
+ Setup MongoDB
+
+Install MongoDB Locally
+Follow the instructions on the MongoDB website to install MongoDB on your local machine.
+
+ Create a Free Cluster on MongoDB Atlas
+1. Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
+2. Sign up for a free account.
+3. Create a new cluster and follow the connection instructions.
+
+verify Installation and Connection
+Run the following command to verify the MongoDB installation:
+```sh
+mongo --version
+```
+
+Database and Collection Creation
+
+Create Database
+```sh
+use library
+```
+
+Create Collection
+```sh
+db.createCollection("books")
+```
+
+ Insert Data
+Insert at least five book records into the `books` collection:
+```sh
+db.books.insertMany([
+    {
+        title: "The Great Gatsby",
+        author: "F. Scott Fitzgerald",
+        publishedYear: 1925,
+        genre: "Fiction",
+        ISBN: "9780743273565"
+    },
+    {
+        title: "To Kill a Mockingbird",
+        author: "Harper Lee",
+        publishedYear: 1960,
+        genre: "Fiction",
+        ISBN: "9780061120084"
+    },
+    {
+        title: "1984",
+        author: "George Orwell",
+        publishedYear: 1949,
+        genre: "Dystopian",
+        ISBN: "9780451524935"
+    },
+    {
+        title: "The Hobbit",
+        author: "J.R.R. Tolkien",
+        publishedYear: 1937,
+        genre: "Fantasy",
+        ISBN: "9780547928227"
+    },
+    {
+        title: "Harry Potter and the Philosopher's Stone",
+        author: "J.K. Rowling",
+        publishedYear: 1997,
+        genre: "Fantasy",
+        ISBN: "9780747532699"
+    }
+])
+```
+
+Retrieve Data
+
+Retrieve All Books
+```sh
+db.books.find().pretty()
+```
+
+ Query Books by Author
+```ssh
+db.books.find({ author: "George Orwell" }).pretty()
+```
+
+Find Books Published After 2000
+```sh
+db.books.find({ publishedYear: { $gt: 2000 } }).pretty()
+```
+
+ Update Data
+
+Update Published Year
+```sh
+db.books.updateOne(
+    { ISBN: "9780743273565" },
+    { $set: { publishedYear: 1926 } }
+)
+```
+
+ Add Rating Field
+```sh
+db.books.updateMany(
+    {},
+    { $set: { rating: 5 } }
+)
+```
+
+Delete Data
+delete Book by ISBN
+```sh
+db.books.deleteOne({ ISBN: "9780451524935" })
+```
+
+remove Books by Genre
+```sh
+db.books.deleteMany({ genre: "Fantasy" })
+```
+
+ Data Modeling for E-commerce Platform
+
+ Users Collection
+```sh
+db.createCollection("users")
+db.users.insertMany([
+    {
+        username: "john_doe",
+        email: "john@example.com",
+        password: "hashed_password",
+        address: "123 Main St, Anytown, USA"
+    },
+    {
+        username: "jane_doe",
+        email: "jane@example.com",
+        password: "hashed_password",
+        address: "456 Elm St, Othertown, USA"
+    }
+])
+```
+
+ Products Collection
+```sh
+db.createCollection("products")
+db.products.insertMany([
+    {
+        name: "Laptop",
+        description: "A high performance laptop",
+        price: 999.99,
+        stock: 50
+    },
+    {
+        name: "Smartphone",
+        description: "A latest model smartphone",
+        price: 699.99,
+        stock: 100
+    }
+])
+```
+
+Orders Collection
+```sh
+db.createCollection("orders")
+db.orders.insertMany([
+    {
+        userId: ObjectId("user_id_here"),
+        products: [
+            { productId: ObjectId("product_id_here"), quantity: 1 }
+        ],
+        total: 999.99,
+        orderDate: new Date()
+    }
+])
+```
+ Aggregation Pipeline
+
+ Total Number of Books per Genre
+```sh
+db.books.aggregate([
+    { $group: { _id: "$genre", total: { $sum: 1 } } }
+])
+```
+
+ Average Published Year
+```sh
+db.books.aggregate([
+    { $group: { _id: null, avgPublishedYear: { $avg: "$publishedYear" } } }
+])
+```
+
+Top-Rated Book
+```sh
+db.books.find().sort({ rating: -1 }).limit(1).pretty()
+```
+
+ Indexing
+
+ Create Index on Author Field
+```sh
+db.books.createIndex({ author: 1 })
+```
+
+ Benefits of Indexing
+Indexing improves the speed and efficiency of query operations by allowing the database to quickly locate and access the data without scanning the entire collection. It is particularly beneficial for large datasets and frequently queried fields.
+
+ Testing
+Use the MongoDB shell or Compass to verify the inserted and updated records. Ensure all queries return the expected results.
+
+ Submission
+Push your code and scripts to your GitHub repository.
+Remove Books by Genre
+```sh
+db.books.deleteMany({ genre: "Fantasy" })
+```
+
+ Data Modeling for E-commerce Platform
+
+ Users Collection
+```sh
+db.createCollection("users")
+db.users.insertMany([
+    {
+        username: "john_doe",
+        email: "john@example.com",
+        password: "hashed_password",
+        address: "123 Main St, Anytown, USA"
+    },
+    {
+        username: "jane_doe",
+        email: "jane@example.com",
+        password: "hashed_password",
+        address: "456 Elm St, Othertown, USA"
+    }
+])
+```
+
+Products Collection
+```sh
+db.createCollection("products")
+db.products.insertMany([
+    {
+        name: "Laptop",
+        description: "A high performance laptop",
+        price: 999.99,
+        stock: 50
+    },
+    {
+        name: "Smartphone",
+        description: "A latest model smartphone",
+        price: 699.99,
+        stock: 100
+    }
+])
+```
+
+orders Collection
+```sh
+db.createCollection("orders")
+db.orders.insertMany([
+    {
+        userId: ObjectId("user_id_here"),
+        products: [
+            { productId: ObjectId("product_id_here"), quantity: 1 }
+        ],
+        total: 999.99,
+        orderDate: new Date()
+    }
+])
+```
+
+Aggregation Pipeline
+
+ Total Number of Books per Genre
+```sh
+db.books.aggregate([
+    { $group: { _id: "$genre", total: { $sum: 1 } } }
+])
+```
+
+ Average Published Year
+```sh
+db.books.aggregate([
+    { $group: { _id: null, avgPublishedYear: { $avg: "$publishedYear" } } }
+])
+```
+
+Top-Rated Book
+```sh
+db.books.find().sort({ rating: -1 }).limit(1).pretty()
+```
+
+Indexing
+
+ Create Index on Author Field
+```sh
+db.books.createIndex({ author: 1 })
+```
+
+Benefits of Indexing
+Indexing improves the speed and efficiency of query operations by allowing the database to quickly locate and access the data without scanning the entire collection. It is particularly beneficial for large datasets and frequently queried fields.
+
+ Testing
+Use the MongoDB shell or Compass to verify the inserted and updated records. Ensure all queries return the expected results.
+
+Submission
+Push your code and scripts to your GitHub repository.
